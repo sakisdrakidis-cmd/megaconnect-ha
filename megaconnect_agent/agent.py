@@ -15,10 +15,10 @@ from datetime import datetime, timezone
 
 import aiohttp
 
-VERSION = "1.0.0"
+VERSION = "1.0.1"
 OPTIONS = os.environ.get("MC_OPTIONS", "/data/options.json")
 HA_WS = os.environ.get("MC_HA_WS", "ws://supervisor/core/websocket")
-TOKEN = os.environ.get("SUPERVISOR_TOKEN", "")
+TOKEN = os.environ.get("SUPERVISOR_TOKEN") or os.environ.get("HASSIO_TOKEN") or ""
 DOMAINS = ["binary_sensor", "sensor", "event", "input_boolean", "switch", "lock", "alarm_control_panel"]
 # Από τους sensor κρατάμε μόνο ό,τι αφορά ασφάλεια / ζωή (όχι π.χ. ενέργεια κάθε δευτερόλεπτο).
 SENSOR_CLASSES = {"battery", "temperature", "humidity", "carbon_monoxide", "gas", "moisture", "smoke"}
@@ -164,6 +164,8 @@ async def ha_loop(session, server):
 async def main():
     url, key = load_options()
     log(f"MegaGuard Connect {VERSION} → {url}")
+    if not TOKEN:
+        log("ΠΡΟΣΟΧΗ: δεν βρέθηκε το token του Home Assistant (SUPERVISOR_TOKEN) — η σύνδεση με το Home Assistant δεν θα γίνει.")
     async with aiohttp.ClientSession() as session:
         server = Server(session, url, key)
         await asyncio.gather(heartbeat(server), sender(server), ha_loop(session, server))
