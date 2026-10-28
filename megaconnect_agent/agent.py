@@ -15,11 +15,12 @@ from datetime import datetime, timezone
 
 import aiohttp
 
-VERSION = "1.0.1"
+VERSION = "1.0.2"
 OPTIONS = os.environ.get("MC_OPTIONS", "/data/options.json")
 HA_WS = os.environ.get("MC_HA_WS", "ws://supervisor/core/websocket")
 TOKEN = os.environ.get("SUPERVISOR_TOKEN") or os.environ.get("HASSIO_TOKEN") or ""
-DOMAINS = ["binary_sensor", "sensor", "event", "input_boolean", "switch", "lock", "alarm_control_panel"]
+# Μόνο ό,τι αφορά ασφάλεια / ζωή: όχι φώτα, διακόπτες, LED, Wi-Fi κ.λπ.
+DOMAINS = ["binary_sensor", "sensor", "event", "input_boolean", "lock", "alarm_control_panel"]
 # Από τους sensor κρατάμε μόνο ό,τι αφορά ασφάλεια / ζωή (όχι π.χ. ενέργεια κάθε δευτερόλεπτο).
 SENSOR_CLASSES = {"battery", "temperature", "humidity", "carbon_monoxide", "gas", "moisture", "smoke"}
 

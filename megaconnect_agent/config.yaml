@@ -1,5 +1,5 @@
 name: MegaGuard Connect
-version: "1.0.1"
+version: "1.0.2"
 slug: megaconnect_agent
 description: Συνδέει αυτό το σπίτι με το κέντρο λήψης σημάτων της Mega Guard
 url: https://github.com/sakisdrakidis-cmd/megaconnect-ha
