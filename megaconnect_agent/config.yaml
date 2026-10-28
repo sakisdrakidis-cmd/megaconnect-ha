@@ -1,0 +1,18 @@
+name: MegaGuard Connect
+version: "1.0.0"
+slug: megaconnect_agent
+description: Συνδέει αυτό το σπίτι με το κέντρο λήψης σημάτων της Mega Guard
+url: https://github.com/sakisdrakidis-cmd/megaconnect-ha
+arch:
+  - aarch64
+  - amd64
+init: false
+startup: application
+boot: auto
+homeassistant_api: true
+options:
+  server_url: "https://api-connect.megapatrol.gr"
+  home_key: ""
+schema:
+  server_url: url
+  home_key: password
